@@ -1,6 +1,6 @@
-package models;
+package models.pointsOfInterest;
 
-public interface Plottable {
+public interface IPlottable {
 
     String getLabel();
 

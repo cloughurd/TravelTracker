@@ -1,6 +1,6 @@
-package models;
+package models.pointsOfInterest;
 
-public class TemplePlottable implements Plottable {
+public class TemplePlottable implements IPlottable {
 
     private String label, latitude, longitude;
     private PlottableType type;

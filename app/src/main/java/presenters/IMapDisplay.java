@@ -2,10 +2,10 @@ package presenters;
 
 import java.util.List;
 
-import models.Plottable;
+import models.pointsOfInterest.IPlottable;
 
 public interface IMapDisplay {
 
-    int placePOIs(List<Plottable> thingsToPlace);
+    int placePOIs(List<IPlottable> thingsToPlace);
 
 }
