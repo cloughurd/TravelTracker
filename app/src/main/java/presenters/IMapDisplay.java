@@ -6,6 +6,6 @@ import models.pointsOfInterest.IPlottable;
 
 public interface IMapDisplay {
 
-    int placePOIs(List<IPlottable> thingsToPlace);
+    void placePOIs(List<IPlottable> thingsToPlace);
 
 }
