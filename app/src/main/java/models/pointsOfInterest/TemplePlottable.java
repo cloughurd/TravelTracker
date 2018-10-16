@@ -58,4 +58,14 @@ public class TemplePlottable implements IPlottable {
     public void setVisited(boolean visited) {
         this.visited = visited;
     }
+
+    @Override
+    public double getLatDouble() {
+        return Double.parseDouble(latitude);
+    }
+
+    @Override
+    public double getLongDouble() {
+        return Double.parseDouble(longitude);
+    }
 }

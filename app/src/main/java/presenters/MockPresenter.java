@@ -34,5 +34,6 @@ public class MockPresenter implements IMapPresenter {
 
     private void fetchItemsToPlot(){
         List<IPlottable> poiList = retriever.getPois();
+        mapView.placePOIs(poiList);
     }
 }

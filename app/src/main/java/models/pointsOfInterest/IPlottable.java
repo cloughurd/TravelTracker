@@ -11,4 +11,7 @@ public interface IPlottable {
     String getLatitude();
     String getLongitude();
 
+    double getLatDouble();
+    double getLongDouble();
+
 }

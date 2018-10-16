@@ -37,4 +37,14 @@ public class WonderPlottable implements IPlottable {
     public String getLongitude() {
         return longitude;
     }
+
+    @Override
+    public double getLatDouble() {
+        return Double.parseDouble(latitude);
+    }
+
+    @Override
+    public double getLongDouble() {
+        return Double.parseDouble(longitude);
+    }
 }

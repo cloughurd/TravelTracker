@@ -10,6 +10,9 @@ public class ProviderFactory {
     }
 
     public static ISingleProvider getProvider(){
+        if(provider == null){
+            provider = SingleProvider.getInstance();
+        }
         return provider;
     }
 }
