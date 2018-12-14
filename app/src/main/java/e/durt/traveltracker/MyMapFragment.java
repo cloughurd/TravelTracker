@@ -21,15 +21,21 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
+import exceptions.AssetNotFoundException;
+import modelStorage.IAssetRetriever;
 import models.pointsOfInterest.IPlottable;
 import models.pointsOfInterest.PlottableType;
 import presenters.IMapDisplay;
 import presenters.MockPresenter;
 
 
-public class MyMapFragment extends SupportMapFragment implements IMapDisplay {
+public class MyMapFragment extends SupportMapFragment implements IMapDisplay, IAssetRetriever {
     private GoogleMap map;
     private IMapPresenter mapPresenter;
 
@@ -53,7 +59,6 @@ public class MyMapFragment extends SupportMapFragment implements IMapDisplay {
             @Override
             public void run() {
                 placePlottablesOnMap(thingsToPlace);
-                map.addMarker(new MarkerOptions().position(new LatLng(10, 10)).title("test in placePOIs"));
             }
         });
     }
@@ -97,5 +102,27 @@ public class MyMapFragment extends SupportMapFragment implements IMapDisplay {
         icon.sizeDp(40);
         icon.setAlpha(1);
         return icon;
+    }
+
+
+    @Override
+    public InputStream getAssetInputStream(String filename) throws AssetNotFoundException {
+        try {
+            return getActivity().getAssets().open(filename);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+            throw new AssetNotFoundException(filename + " was not found in the assets");
+        }
+    }
+
+    public InputStreamReader getISRFromAssets(String fileName){
+        try {
+            return new InputStreamReader(getActivity().getAssets().open(fileName));
+        }
+        catch(IOException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }
