@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ import exceptions.AssetNotFoundException;
 import modelStorage.IAssetRetriever;
 import models.pointsOfInterest.IPlottable;
 import models.pointsOfInterest.PlottableType;
+import models.provider.ProviderFactory;
 import presenters.IMapDisplay;
 import presenters.MockPresenter;
 
@@ -54,6 +56,12 @@ public class MyMapFragment extends SupportMapFragment implements IMapDisplay, IA
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        ProviderFactory.getProvider().setAssetRetriever(this);
+    }
+
+    @Override
     public void placePOIs(final List<IPlottable> thingsToPlace) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -67,7 +75,7 @@ public class MyMapFragment extends SupportMapFragment implements IMapDisplay, IA
         for(IPlottable poi : plottableList){
             LatLng loc = new LatLng(poi.getLatDouble(), poi.getLongDouble());
             BitmapDescriptor icon = getCustomMarker(poi.getType(), getActivity());
-            MarkerOptions marker = new MarkerOptions().position(loc).title(poi.getLabel());
+            MarkerOptions marker = new MarkerOptions().position(loc).title(poi.getLabel()).icon(icon).alpha(1.0f);
             map.addMarker(marker);
         }
 
@@ -99,8 +107,10 @@ public class MyMapFragment extends SupportMapFragment implements IMapDisplay, IA
                 iconType = FontAwesomeIcons.fa_map_marker;
         }
         IconDrawable icon = new IconDrawable(activity, iconType);
-        icon.sizeDp(40);
+        icon.sizeDp(25);
         icon.setAlpha(1);
+        float color[] = {5, 1, 1};
+        icon.color(Color.HSVToColor(color));
         return icon;
     }
 
@@ -113,16 +123,6 @@ public class MyMapFragment extends SupportMapFragment implements IMapDisplay, IA
         catch(IOException e){
             e.printStackTrace();
             throw new AssetNotFoundException(filename + " was not found in the assets");
-        }
-    }
-
-    public InputStreamReader getISRFromAssets(String fileName){
-        try {
-            return new InputStreamReader(getActivity().getAssets().open(fileName));
-        }
-        catch(IOException e){
-            e.printStackTrace();
-            return null;
         }
     }
 }

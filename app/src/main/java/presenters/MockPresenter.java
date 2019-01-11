@@ -20,7 +20,7 @@ public class MockPresenter implements IMapPresenter {
     public MockPresenter(IMapDisplay mapDisplay){
         mapView = mapDisplay;
         retriever = ProviderFactory.getProvider().getRetriever();
-        ((TempleFileRetriever)retriever).setPresenter(this);
+//        ((TempleFileRetriever)retriever).setPresenter(this);
     }
 
     @Override
@@ -50,9 +50,5 @@ public class MockPresenter implements IMapPresenter {
             e.printStackTrace();
             //TODO: implement toasting error messages
         }
-    }
-
-    public InputStreamReader getISRFromAssets(String fileName){
-        return ((MyMapFragment)mapView).getISRFromAssets(fileName);
     }
 }

@@ -4,6 +4,7 @@ import modelStorage.IAssetRetriever;
 import modelStorage.IStorageRetrieval;
 import modelStorage.MockRetriever;
 import modelStorage.TempleFileRetriever;
+import modelStorage.TempleParkRetriever;
 
 public class SingleProvider implements ISingleProvider {
     private static SingleProvider singleProvider;
@@ -11,7 +12,7 @@ public class SingleProvider implements ISingleProvider {
     private IAssetRetriever assetRetriever;
 
     private SingleProvider(){
-        mockRetriever = new TempleFileRetriever();
+        mockRetriever = new TempleParkRetriever();
     }
 
     public static SingleProvider getInstance(){
